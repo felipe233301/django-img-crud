@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block content %}
+
+<main class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+
+            {% if tasks_compl == 'tru' %}
+                <h1 class="text-center display-3 py-5">Tasks pending</h1>
+
+            {% else %}
+                <h1 class="text-center display-3 py-5">Tasks completed</h1>
+
+            {% endif %}
+
+            <ul class="list-group row">
+                {% for task in tasks %}
+                <a href="{% url 'task_detail' task.id %}" class="list-group-item">
+
+
+                        <div class="card col-md-6 offset-md-6" >
+                            {% if task.imagen %}
+                            <img src="{{ task.imagen.url }}" class="card-img-top" alt="Imagen de la tarea">
+                            {% else %}
+                                <p>No se ha subido ninguna imagen.</p>
+                            {% endif %}
+                            <div class="card-body">
+                                {% if task.important %}
+                                <h5 class="card-title fw-bold text-success">{{task.title}}</h5>
+                                {% else %}
+                                <h5 class="card-title fw-bold ">{{task.title}}</h5>
+                                {% endif %}
+
+                                <p class="card-text">{{task.description}}</p>
+                                <p>{{task.user.username}}</p>
+                            </div>
+                        </div>
+
+
+                </a>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</main>
+
+{% endblock content %}
